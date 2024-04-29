@@ -1,0 +1,4 @@
+### 유저 정보 조회하기
+GET http://localhost:8080/user
+Accept: application/json
+
