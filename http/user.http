@@ -2,3 +2,15 @@
 GET http://localhost:8080/user
 Accept: application/json
 
+### 유저 정보 수정하기
+PUT http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "id" : 1,
+  "name" : "AAA"
+}
+
+### 유저 정보 삭제하기
+DELETE http://localhost:8080/user?name=AAA
+
