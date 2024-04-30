@@ -6,10 +6,10 @@ public class CalculatorResponse {
   private int minus;
   private int multiply;
 
-  public CalculatorResponse(int add, int minus, int multiply) {
-    this.add = add;
-    this.minus = minus;
-    this.multiply = multiply;
+  public CalculatorResponse(int number1, int number2) {
+    this.add = number1 + number2;
+    this.minus = number1 - number2;
+    this.multiply = number1 * number2;
   }
 
   public int getAdd() {

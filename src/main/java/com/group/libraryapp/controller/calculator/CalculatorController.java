@@ -7,7 +7,6 @@ import com.group.libraryapp.dto.caculator.response.CalculatorResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,18 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController {
 
-  @GetMapping("/api/v1/calc")
-  public CalculatorResponse addTwoNumbers(CalculatorAddRequest request) {
-    return new CalculatorResponse(
-        request.getNumber1() + request.getNumber2(),
-        request.getNumber1() - request.getNumber2(),
-        request.getNumber1() * request.getNumber2()
-    );
+  @GetMapping("/add")
+  public int addTwoNumbers(CalculatorAddRequest request) {
+    return request.getNumber1() + request.getNumber2();
   }
 
   @PostMapping("/multiply")
   public int multiplyTwoNumbers(@RequestBody CalculatorMultiplyRequest request) {
     return request.getNumber1() * request.getNumber2();
+  }
+
+  @GetMapping("/api/v1/calc")
+  public CalculatorResponse calculateNumbers(CalculatorAddRequest request) {
+    return new CalculatorResponse(request.getNumber1(), request.getNumber2());
   }
 
   @GetMapping("/api/v1/day-of-the-week")
