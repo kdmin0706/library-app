@@ -1,5 +1,6 @@
 package com.group.libraryapp.controller.user;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -10,12 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group.libraryapp.domain.user.User;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
+import com.group.libraryapp.service.user.UserService;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +29,9 @@ class UserControllerTest {
 
   @Autowired
   private ObjectMapper objectMapper;
+
+  @MockBean
+  private UserService userService;
 
   @Test
   @DisplayName("유저의 정보를 저장합니다.")
@@ -45,7 +50,6 @@ class UserControllerTest {
     ;
   }
 
-  @Disabled
   @Test
   @DisplayName("유저의 정보를 조회합니다.")
   void getUsers() throws Exception {
@@ -54,7 +58,7 @@ class UserControllerTest {
         new UserResponse(1, new User("user", 10))
     );
 
-    //todo 서비스 로직 구현 시에 mockito 구현
+    given(userService.getUsers()).willReturn(responses);
 
     // when // then
     mockMvc.perform(
@@ -67,4 +71,5 @@ class UserControllerTest {
         .andExpect(jsonPath("$[0].age").value(10))
     ;
   }
+
 }
