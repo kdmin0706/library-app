@@ -1,8 +1,21 @@
 package com.group.libraryapp.domain.user;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(nullable = false, length = 20)
   private String name;
+
   private Integer age;
 
   public String getName() {
@@ -11,6 +24,9 @@ public class User {
 
   public Integer getAge() {
     return age;
+  }
+
+  public User() {
   }
 
   public User(String name, Integer age) {
