@@ -18,6 +18,10 @@ public class User {
 
   private Integer age;
 
+  public Long getId() {
+    return id;
+  }
+
   public String getName() {
     return name;
   }
@@ -36,6 +40,10 @@ public class User {
 
     this.name = name;
     this.age = age;
+  }
+
+  public void updateName(String name) {
+    this.name = name;
   }
 
 }
