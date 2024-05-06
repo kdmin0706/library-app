@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group.libraryapp.domain.user.User;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
-import com.group.libraryapp.service.user.UserService;
+import com.group.libraryapp.service.user.UserServiceV1;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class UserControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private UserService userService;
+  private UserServiceV1 userService;
 
   @Test
   @DisplayName("유저의 정보를 저장합니다.")
