@@ -8,6 +8,7 @@ import com.group.libraryapp.dto.user.response.UserResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceV2 {
@@ -22,18 +23,19 @@ public class UserServiceV2 {
     userRepository.save(new User(request.getName(), request.getAge()));
   }
 
+  @Transactional(readOnly = true)
   public List<UserResponse> getUsers() {
     return userRepository.findAll().stream()
         .map(UserResponse::new)
         .collect(Collectors.toList());
   }
 
+  @Transactional
   public void updateUser(UserUpdateRequest request) {
     User user = userRepository.findById(request.getId())
         .orElseThrow(IllegalArgumentException::new);
 
     user.updateName(user.getName());
-    userRepository.save(user);
   }
 
   public void deleteUser(String name) {
