@@ -29,11 +29,11 @@ class UserLoanHistoryRepositoryTest {
 
   @Test
   @DisplayName("책의 이름을 조회하여 대출 여부를 체크한다.")
-  void existsByBookNameAndIsReturn() {
+  void existsByBookNameAndIsReturn_whenIsLoaned() {
     // given
     String bookName = "SpringBoot";
 
-    User user = new User("user1", 20);
+    User user = createUser("user1", 30);
     userRepository.save(user);
 
     UserLoanHistory loanHistory = new UserLoanHistory(user, bookName);
@@ -45,6 +45,32 @@ class UserLoanHistoryRepositoryTest {
 
     // then
     assertThat(result).isTrue();
+  }
+
+  @Test
+  @DisplayName("책의 이름을 조회하여 반납 여부를 체크한다.")
+  void existsByBookNameAndIsReturn_whenIsReturned() {
+    // given
+    String bookName = "SpringBoot";
+
+    User user = createUser("user", 20);
+    userRepository.save(user);
+
+    UserLoanHistory loanHistory = new UserLoanHistory(user, bookName);
+
+    loanHistory.doReturn();
+    userLoanHistoryRepository.save(loanHistory);
+
+    // when
+    boolean result = userLoanHistoryRepository
+        .existsByBookNameAndIsReturn(bookName, true);
+
+    // then
+    assertThat(result).isTrue();
+  }
+
+  private User createUser(String name, int age) {
+    return new User(name, age);
   }
 
 }
